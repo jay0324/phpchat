@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0, user-scalable=0">
+    <title>{appname}</title>
+    <!--響應式設定-->
+    <link rel="stylesheet" type="text/css" href="response/_css/default.css" media="all"> <!--響應式預設樣式-->
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" type="text/css" href="response/_css/custom.css" media="all"> <!--客制設定樣式-->
+    <script type="text/javascript" src="response/jquery.min.js"></script> <!--jQuery-->
+    <script type="text/javascript" src="response/response.min.js"></script> <!--response主程式-->
+    <script type="text/javascript" src="response/custom.js"></script> <!--response客制設定-->
+    <!--響應式設定-->
+    <script>
+        $(function (){
+
+        })
+    </script>
+  </head>
+  <body>
+
+    <div id="dHeader" class="resContainer">
+        <div class="resDocLayout">
+            <div class="resRow">
+                <div class="resCol12 center">
+                    <div class="resMargin">
+                        {funcTitle}
+                        {primaryNav}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="dTorso" class="resContainer">
+        <div class="resDocLayout">
+            <div class="resRow">
+                
+            </div>
+        </div>
+    </div>
+
+    <div id="dFooter" class="resContainer">
+        <div class="resDocLayout">
+            <div class="resRow">
+                <div class="resCol12 center">
+                    <div class="resMargin">{appname} {version}</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+  </body>
+</html>

@@ -1,0 +1,67 @@
+/* 響應式設定 */
+
+@import "_css3-mixins.scss";
+body {
+    padding: 0;
+    margin: 0;
+    font-family: "微軟正黑體", "Microsoft JhengHei", 'Lato', Verdana, Meiryo;
+    font-size: 15px;
+    color: #333;
+    height:100%;
+}
+
+.resContainer{
+    .resDocLayout{
+        width:100%;
+    }
+
+    &#dHeader{
+        background:#999;
+        color:#fff;
+        position:fixed;
+        top:0;
+        z-index: 1;
+        #nav{
+            float:right;
+            top:-7px;
+        }
+    }
+
+    &#dTorso{
+        margin:50px 0;
+        z-index: 0;
+    }
+
+    &#dFooter{
+        background:#999;
+        color:#fff;
+        position:fixed;
+        bottom:0;
+        z-index: 1;
+    }
+}
+
+/* list style */
+.listitemWrap{
+    .listitem{
+        border:1px solid #333;
+        padding:20px;
+    }
+}
+
+/* btn style */
+.btn{
+    display:inline-block;
+    padding:5px 10px;
+    border:1px solid #9E9E9E;
+    @include background-gradient(#F5F5F5,#E1E1E1);
+    text-decoration: none;
+    color:#999;
+    &:hover{
+        @include background-gradient(#E1E1E1,#F5F5F5);
+    }
+}
+
+.alert{
+    color:#B92672;
+}

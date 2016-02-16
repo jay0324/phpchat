@@ -1,0 +1,42 @@
+/* 響應式設定 */
+
+@import "_css3-mixins.scss";
+body {
+    padding: 0;
+    margin: 0;
+    font-family: "微軟正黑體", "Microsoft JhengHei", 'Lato', Verdana, Meiryo;
+    font-size: 15px;
+    color: #333;
+    height:100%;
+}
+
+.resContainer{
+    .resDocLayout{
+        width:100%;
+    }
+
+    &#dHeader{
+        background:#999;
+        color:#fff;
+        position:fixed;
+        top:0;
+        z-index: 1;
+        #nav{
+            float:right;
+            top:-7px;
+        }
+    }
+
+    &#dTorso{
+        margin:50px 0;
+        z-index: 0;
+    }
+
+    &#dFooter{
+        background:#999;
+        color:#fff;
+        position:fixed;
+        bottom:0;
+        z-index: 1;
+    }
+}

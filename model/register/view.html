@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+    <title>{appname}</title>
+    <!--響應式設定-->
+    <link rel="stylesheet" type="text/css" href="response/_css/default.css" media="all"> <!--響應式預設樣式-->
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" type="text/css" href="response/_css/custom.css" media="all"> <!--客制設定樣式-->
+    <script type="text/javascript" src="response/jquery.min.js"></script> <!--jQuery-->
+    <script type="text/javascript" src="response/response.min.js"></script> <!--response主程式-->
+    <script type="text/javascript" src="response/custom.js"></script> <!--response客制設定-->
+    <!--響應式設定-->
+    <script>
+        
+    </script>
+  </head>
+  <body>
+
+    <div id="mainWrap" class="resContainer">
+        <div class="resDocLayout">
+            <div class="resRow">
+              <div class="resCol12">
+                  <form id="registerForm" action="" method="POST">
+                    <h1 align="center">{appname}</h1>
+                    <table align="center">
+                      <tr>
+                        <th>帳號</th>
+                        <td><input type="text" name="username" /></td>
+                      </tr>
+                      <tr>
+                        <th>密碼</th>
+                        <td><input type="password" name="password" /></td>
+                      </tr>
+                      <tr>
+                        <th>名稱</th>
+                        <td><input type="text" name="name" /></td>
+                      </tr>
+                      <tr>
+                        <td colspan="2" align="center">
+                          <input type="submit" value="註冊" class="btn submit_btn" />
+                          <a href="../login/" class="btn">取消</a>
+                        </td>
+                      </tr>
+                      <input type="hidden" name="action" value="register" />
+                    </table>
+                    <p align="center">{version}</p>
+                </form>
+              </div>
+            </div>
+        </div>
+    </div>
+
+  </body>
+</html>

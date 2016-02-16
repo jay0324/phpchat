@@ -1,0 +1,1569 @@
+/* 預設響應式設定 */
+/* 
+跨瀏覽器css3 mixins
+*/
+@import "_css3-mixins.scss";
+
+/*
+CSS3動畫, 請至helpers查詢模組參數, 然後把想要使用的動畫效果改成true即可
+$use-動畫效果class: true;
+使用方式: 在要使用效果的物件上設定animated 動畫效果class就可以了
+*/
+@import "animate-sass-master/_animate.scss";
+
+/* 列印出背景顏色 */
+
+@mixin print-color-adjust($value) {
+    -webkit-print-color-adjust: $value;
+    -moz-print-color-adjust: $value;
+    -ms-print-color-adjust: $value;
+    -o-print-color-adjust: $value;
+    print-color-adjust: $value;
+}
+
+@mixin page-break-inside($value) {
+    -webkit-page-break-inside: $value;
+    -moz-page-break-inside: $value;
+    -ms-page-break-inside: $value;
+    -o-page-break-inside: $value;
+    page-break-inside: $value;
+}
+
+@mixin page-break-after($value) {
+    -webkit-page-break-after: $value;
+    -moz-page-break-after: $value;
+    -ms-page-break-after: $value;
+    -o-page-break-after: $value;
+    page-break-after: $value;
+}
+
+@mixin text-size-adjust($value) {
+    -webkit-text-size-adjust: $value;
+    -moz-text-size-adjust: $value;
+    -ms-text-size-adjust: $value;
+    -o-text-size-adjust: $value;
+    text-size-adjust: $value;
+}
+
+@mixin overflow-scrolling($value) {
+    -webkit-overflow-scrolling: $value;
+    -moz-overflow-scrolling: $value;
+    -ms-overflow-scrolling: $value;
+    -o-overflow-scrolling: $value;
+    overflow-scrolling: $value;
+}
+
+img {
+    border: 0;
+    max-width: 100%;
+    height: auto;
+}
+
+#mobile_nav,
+.flipContent,
+#mobile_nav_bottom {
+    display: none;
+}
+
+
+/* 預設響應式頁面設定 */
+
+.resFlipPage {
+    display: block;
+    position: fixed;
+    margin: 0;
+    padding: 0 0 0 0;
+    background: #fff;
+    text-align: left;
+    @include box-shadow(0, 0, 10px, #000);
+    overflow: auto;
+    -webkit-overflow-scrolling: touch;
+    -moz-overflow-scrolling: touch;
+    width: 100%;
+    height: 100%;
+}
+
+.resFlipPageL {
+    top: 0;
+    left: -120%;
+    right: auto;
+}
+
+.resFlipPageR {
+    top: 0;
+    left: auto;
+    right: -120%;
+}
+
+.resFlipPageT {
+    left: 0;
+    right: auto;
+    top: -120%;
+}
+
+.resFlipPage .menuList {
+    margin: 60px 10px 60px 10px;
+}
+
+.resPageController,
+.resPageControllerBottom {
+    position: absolute;
+    display: block;
+    left: 0;
+    width: 100%;
+    background: url("../_img/mobile_nav_bg.png") top left repeat-x;
+    background-size: 100% 100%;
+    z-index: 1;
+}
+
+.resPageController {
+    top: 0;
+    >.resAddPageTitle {
+        position: absolute;
+        width: 100%;
+        text-align: center;
+        color: #fff;
+        top: 0;
+        z-index: 0;
+    }
+    >.resAddPageBackIcon {
+        position: absolute;
+        background: url("../_img/closeLeft_btn.png") top left repeat-x;
+        background-size: 100% 100%;
+        left: 0;
+        top: 0;
+        z-index: 1;
+        cursor: pointer;
+    }
+    >.resAddPageNextIcon {
+        position: absolute;
+        background: url("../_img/closeRight_btn.png") top left repeat-x;
+        background-size: 100% 100%;
+        right: 0;
+        top: 0;
+        z-index: 1;
+        cursor: pointer;
+    }
+}
+
+.resPageControllerBottom {
+    bottom: 0;
+    >#closeAllresFlipPage {
+        background: url("../_img/home_btn.png") top left repeat-x;
+        background-size: 100% 100%;
+        cursor: pointer;
+        margin: 0 auto;
+    }
+}
+
+.resAddPageContent {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow-y: auto;
+    z-index: 0;
+    >.resAddPageContentMain {
+        margin: 60px 10px 60px 10px;
+    }
+}
+
+.clear {
+    clear: both;
+}
+
+
+/*動畫物件*/
+
+.resJSlideImg {
+    position: relative;
+    top: 0;
+    left: 0;
+    width: auto;
+    height: auto;
+    z-index: 0;
+    >img,
+    >div,
+    >a {
+        display: block;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: auto;
+        height: auto;
+        opacity: 0;
+        filter: alpha(opacity=0);
+    }
+    .resJSlideImgThumb {
+        position: absolute;
+        overflow: hidden;
+        opacity: 1;
+        z-index: 2;
+        filter: alpha(opacity=100);
+        top: auto;
+        left: auto;
+        right: auto;
+        bottom: auto;
+        .resJSlideImgThumbPrev,
+        .resJSlideImgThumbNext {
+            display: block;
+            background: #ccc;
+            float: left;
+            position: absolute;
+            z-index: 1;
+            &.end {
+                opacity: 0;
+                filter: alpha(opacity=0);
+            }
+        }
+        ul {
+            display: block;
+            margin: 0;
+            padding: 0;
+            float: left;
+            position: absolute;
+            z-index: 0;
+            li {
+                list-style: none;
+                display: block;
+                margin: 5px;
+                padding: 0;
+                cursor: pointer;
+                border: 1px solid #000;
+                background: #fff;
+                float: left;
+                overflow: hidden;
+                &.active {
+                    border: 1px solid #F92672;
+                }
+                img {
+                    display: block;
+                    width: 100%;
+                    height: auto;
+                    clear: both;
+                }
+                span {
+                    display: block;
+                    height: 20px;
+                    clear: both;
+                    text-align: center;
+                }
+            }
+        }
+    }
+    .resJSlideImgslideBtn {
+        position: static;
+        opacity: 1;
+        filter: alpha(opacity=100);
+        .resJSlideImgslideBtnPrev {
+            position: absolute;
+            background: #666;
+            z-index:2;
+        }
+        .resJSlideImgslideBtnNext {
+            position: absolute;
+            background: #666;
+            z-index:2;
+        }
+    }
+}
+
+
+/*enlarge 還原*/
+
+.resEnlarge {
+    position: static;
+    >.resEnlargeOpenIcon,
+    >.resEnlargeContent {
+        display: none;
+    }
+}
+
+
+/*marquee 設定*/
+
+.resMarquee {
+    overflow: hidden;
+    >span {
+        display: block;
+    }
+}
+
+
+/*響應式內建排版*/
+
+table {
+    border-spacing: 0;
+    border-collapse: collapse;
+}
+
+.clear {
+    clear: both;
+}
+
+select.resSelect{
+    display:inline-block;
+    border:1px solid #797166;
+    text-align:left;
+    padding:2px 30px 2px 2px;
+    background: #fff url("../_img/select.png") center right no-repeat;
+    appearance: none;
+    -moz-appearance: none;
+    -webkit-appearance: none;
+    &::-ms-expand{
+        display: none;
+    }
+}
+
+.resContainer {
+    width: 100%;
+    position: relative;
+    z-index: 1;
+    .resDocLayout {
+        position: relative;
+        margin: 0 auto;
+        width: 1280px;
+    }
+}
+
+.resRow {
+    display: block;
+    width: 100%;
+    height: auto;
+    position: relative;
+    &:after {
+        clear: both;
+    }
+    [class*="resCol"] {
+        display: block;
+        float: left;
+        padding: auto;
+        margin: auto;
+    }
+    .resCol12 {
+        width: 100%;
+    }
+    .resCol11 {
+        width: (100%/12)*11;
+    }
+    .resCol10 {
+        width: (100%/12)*10;
+    }
+    .resCol9 {
+        width: (100%/12)*9;
+    }
+    .resCol8 {
+        width: (100%/12)*8;
+    }
+    .resCol7 {
+        width: (100%/12)*7;
+    }
+    .resCol6 {
+        width: (100%/12)*6;
+    }
+    .resCol5 {
+        width: (100%/12)*5;
+    }
+    .resCol4 {
+        width: (100%/12)*4;
+    }
+    .resCol3 {
+        width: (100%/12)*3;
+    }
+    .resCol2_4 {
+        width: (100%/12)*2.4;
+    }
+    .resCol2 {
+        width: (100%/12)*2;
+    }
+    .resCol1 {
+        width: (100%/12)*1;
+    }
+    .resCol0 {
+        display:none;
+    }
+    [class*="resCol"] {
+        &.left {
+            text-align: left;
+        }
+        &.center {
+            text-align: center;
+        }
+        &.right {
+            text-align: right;
+        }
+        .resMargin {
+            margin: 10px;
+        }
+        .resPadding {
+            padding: 10px;
+        }
+        img {
+            width: auto;
+            height: auto;
+        }
+    }
+}
+
+
+/*content close mask*/
+
+#resContentMask {
+    display: none;
+}
+
+.resHtmlOverflow {
+    position: relative;
+    overflow: hidden;
+    overflow-y: hidden !important;
+}
+
+
+/*桌面上的響應式切換樣式*/
+
+.swap_btn_desktop_wrap {
+    display: block;
+    padding: 2px 2px 2px 20px;
+    text-align: center;
+    position: relative;
+    clear: both;
+}
+
+.swap_btn_desktop {
+    color: #000;
+    text-decoration: none;
+    width: auto;
+    height: 15px;
+    margin: 0 auto;
+    font-size: 12px;
+    text-transform: capitalize;
+    >a,
+    >span {
+        color: #000;
+        padding: 2px 2px 2px 22px;
+        display: inline-block;
+        height: 16px;
+    }
+    >a {
+        background: url("../_img/swap_m_btn_desk.png") top left no-repeat;
+    }
+    >span {
+        font-weight: bold;
+        background: url("../_img/swap_d_btn_desk.png") top left no-repeat;
+    }
+}
+
+
+/*scroll top image*/
+
+#topcontrol {
+    width: 50px;
+    height: 50px;
+    background: url("../_img/scrolltop.png") center no-repeat;
+}
+
+
+/*loading icon*/
+
+#resPageLoad_loading_icon,
+#resLoader {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #f2f1f6 url("../_img/loader.GIF") center no-repeat;
+}
+
+#resPageLoad_loading_icon {
+    z-index: 1002;
+}
+
+#resLoader {
+    z-index: 1001;
+}
+
+#resPageLoader {
+    @include box-shadow(0);
+}
+
+
+/* responsive tab class style */
+
+.tabs {
+    display: block;
+    margin: 0;
+    padding: 0;
+    position: relative;
+    /* z-index: 1; */
+    li {
+        display: block;
+        margin: 1px 5px 0 0;
+        padding: 0;
+        float: left;
+        list-style: none;
+        .tabsBtn {
+            display: block;
+            width: auto;
+            padding: 5px 30px;
+            background: #E8E8E8;
+            color: #333;
+            font-size: 16px;
+            text-decoration: none;
+            border: 1px solid #CCCCCC;
+            @include transition(background 0.5s,
+            color 0.5s);
+            @include border-radius(2px 15px 0 0);
+            &:hover,
+            &.active {
+                color: #333;
+                background: #fff;
+                border-bottom: 1px solid #fff;
+            }
+        }
+    }
+}
+
+.tabs_content {
+    display: block;
+    margin: 10px 0;
+    padding: 10px;
+    clear: both;
+    border: 1px solid #CCCCCC;
+    min-height: 200px;
+    top: -1px;
+    position: relative;
+    /* z-index: 0; */
+    .tabsContent {
+        display: none;
+        top: 0;
+        clear: both;
+        list-style: none;
+        padding: 0;
+        margin: 0;
+    }
+}
+
+
+/* responsive slider */
+
+.sliderContainer {
+    width: 100%;
+    margin: 10px 0;
+    overflow: hidden;
+    position: relative;
+    ul {
+        display: block;
+        margin: 0;
+        padding: 0;
+        z-index: 1;
+        position: relative;
+        width: 1200px;
+        top: 0;
+        left: 0;
+        z-index: 0;
+        li {
+            display: block;
+            padding: 0;
+            float: left;
+            list-style: none;
+            img {
+                display: block;
+                width: 100% !important;
+                height: auto !important;
+            }
+        }
+    }
+    .sliderContainerPrevBtn {
+        width: 20px;
+        height: 100%;
+        background: #ccc;
+        position: absolute;
+        top: 0;
+        left: 0;
+        z-index: 1;
+        cursor: pointer;
+    }
+    .sliderContainerNextBtn {
+        width: 20px;
+        height: 100%;
+        background: #ccc;
+        position: absolute;
+        top: 0;
+        right: 0;
+        z-index: 1;
+        cursor: pointer;
+    }
+}
+
+//resPopupBox
+.resPopupBox {
+    cursor: pointer;
+    padding-bottom: 40px;
+    background: #ccc;
+    background: url("../_img/resPopupBox.png") bottom left no-repeat;
+}
+
+.resPopupBoxWrap {
+    display: none;
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    background: url("../_img/transparent.png");
+    z-index: 1006;
+    top: 0;
+    left: 0;
+    .resPopupBoxContent {
+        width: auto;
+        height: auto;
+        margin: 0 auto;
+        text-align: center;
+        position: relative;
+        .resPopupBoxCloseBtn {
+            cursor: pointer;
+            width: 40px;
+            height: 40px;
+            background: url("../_img/resPopupBoxCloseBtn.png") center no-repeat;
+            float: right;
+            color: #fff;
+            position: relative;
+            top: 0;
+            right: 0;
+        }
+        .resPopupBoxContentArea {
+            width: auto;
+            height: auto;
+            position: relative;
+            top: 60px;
+            left: 0;
+        }
+    }
+}
+
+//ladder
+.resLadderMode {
+    position: absolute;
+    top: -110px;
+    left: 0;
+    border: 1px solid #000;
+    background: #EDEDED;
+    width: 150px;
+    height: auto;
+    @include box-shadow('0 0 5px #000');
+    .title {
+        padding: 2px;
+        text-align: center;
+        background: #333;
+        color: #fff;
+    }
+    .content {
+        padding: 2%;
+        width: 96%;
+        height: 80px;
+        overflow: auto;
+    }
+}
+
+#resGlobalInfo {
+    position: fixed;
+    top: auto;
+    left: auto;
+    bottom: 0;
+    right: 0;
+    width: 150px;
+    height: 120px;
+}
+
+
+/* resMenu style */
+
+.resMenu {
+    ul {
+        margin: 5px;
+        padding: 0;
+        li {
+            list-style: none;
+            margin: 7px 5px;
+            a {
+                display:block;
+                color: #333;
+                text-decoration: none;
+                font-size: 15px;
+                font-weight: bold;
+                margin-bottom:1px;
+                &.hasChild{
+                    padding:5px 5px 5px 30px;
+                    background:#ccc url("../_img/EnlargePlus_btn.png") left top no-repeat;
+                    background-size:auto 100%;
+                    color:#000;
+                }
+            }
+            ul {
+                display: none;
+                li {
+                    a {
+                        font-weight: normal;
+                    }
+                    ul {
+                        li {
+                            margin: 10px 5px;
+                            a {
+                                font-size: 13px;
+                                text-decoration: underline;
+                            }
+                        }
+                    }
+                }
+            }
+            &.active {
+                >ul {
+                    display: block;
+                }
+            }
+        }
+    }
+}
+
+.resMenu2 {
+    position: relative;
+    display: inline-block;
+    margin-bottom:-3px;
+    ul {
+        display: block;
+        margin: 0;
+        padding: 0;
+        li {
+            position: relative;
+            display: inline-block;
+            margin: 1px;
+            padding: 0;
+            list-style: none;
+            float: left;
+            a {
+                display: block;
+                padding: 10px 35px;
+                margin: 0;
+                width: auto;
+                height: auto;
+                float: left;
+                text-decoration: none;
+                color: #000;
+                text-align: center;
+                font-size: 15px;
+                background: #eee;
+                @include transition("background 0.5s");
+                &.hasChild{
+                    padding: 10px 40px 10px 30px;
+                    background:#ccc url("../_img/EnlargePlus_btn.png") right center no-repeat;
+                    background-size:auto 100%;
+                }
+                &:hover {
+                    color: #fff;
+                    background: #666564;
+                    &.hasChild{
+                        background:#666564 url("../_img/EnlargePlus_btn.png") right center no-repeat;
+                        background-size:auto 100%;
+                    }
+                }
+            }
+            &.active {
+                >a {
+                    color: #fff;
+                    background: #666564;
+                }
+            }
+            ul {
+                position: absolute;
+                display: none;
+                top: 100%;
+                li {
+                    margin: 0 0 1px 0;
+                    a {
+                        width: 150px;
+                        background: #eee;
+                        &:hover {
+                            background: #666564;
+                        }
+                    }
+                    &.active {
+                        a {
+                            background: #666564;
+                        }
+                    }
+                    ul {
+                        top: 0;
+                        left: 100%;
+                    }
+                }
+            }
+        }
+    }
+}
+
+/* 
+    - google nexus 10 landscape / galaxy tab 7.7,8,9,10.1 (1280px)
+*/
+
+@media (max-width:1280px) {
+    /*響應式頁面*/
+    /* @include background(linear-gradient(#fff,#eee)); */
+}
+
+
+/* 
+    - ipad landscape / general screen landscape / galaxy tab (1024px)
+*/
+
+@media (max-width:1024px) {}
+
+
+/* 
+    - google nexus 7 landscape (966px)
+    - google nexus 7 2 landscape (960px)
+*/
+
+@media (max-width:966px) {}
+
+
+/* 
+    - google nexus 10 portrait / galaxy tab 7.7,8,9,10.1 portrait (800px)
+    - ipad portrait / general screen portrait (768px)
+*/
+
+@media (max-width:800px) {
+    /* res Document Width */
+    .resContainer {
+        position: static;
+    }
+    /*content close mask*/
+    #resContentMask {
+        width: 100%;
+        height: 100%;
+        position: fixed;
+        top: 0;
+        z-index: 100;
+    }
+    /* page content */
+    body {
+        @include text-size-adjust(100%);
+    }
+    #resMainWrap {
+        position: relative;
+        margin: 0;
+        width: 100%;
+        overflow: hidden;
+        z-index: 99;
+        @include box-shadow(0,
+        0,
+        10px,
+        #000);
+    }
+    /* menu style */
+    .top_menu {
+        position: absolute;
+        top: 0;
+        left: 0;
+        height: 25px;
+        width: 100%;
+        margin-top: 0;
+        ul li {
+            margin: 0 5px;
+            font-size: 18px;
+        }
+    }
+    #mobile_nav,
+    #mobile_nav_bottom {
+        display: block;
+        left: 0;
+        width: 100%;
+        background: url("../_img/mobile_nav_bg.png") top left repeat-x;
+        background-size: 100% 100%;
+        z-index: 150;
+        overflow: auto;
+        ul,
+        ul li {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+        ul li {
+            display: block;
+            float: left;
+            position: relative;
+            &#menu_btn,
+            &#menu_btn_bottom {
+                float: left;
+                background: url("../_img/menu_btn.png") top left no-repeat;
+                background-size: 100% 100%;
+            }
+            a {
+                display: table-cell;
+                overflow: hidden;
+                color: #fff;
+                text-decoration: none;
+                text-align: center;
+                vertical-align: middle;
+            }
+
+            .closeTop_btn,
+            .closeRight_btn,
+            .closeLeft_btn {
+                width: 100%;
+                height: 100%;
+                position: absolute;
+                top: 0;
+                left: 0;
+            }
+            .closeTop_btn {
+                background: url("../_img/closeTop_btn.png") top left no-repeat;
+                background-size: 100% 100%;
+            }
+            .closeRight_btn {
+                background: url("../_img/closeRight_btn.png") top left no-repeat;
+                background-size: 100% 100%;
+            }
+            .closeLeft_btn {
+                background: url("../_img/closeLeft_btn.png") top left no-repeat;
+                background-size: 100% 100%;
+            }
+        }
+    }
+    #mobile_nav {
+        top: 0;
+    }
+    #mobile_nav_bottom {
+        bottom: 0;
+    }
+    /*響應式按鈕內容*/
+    .flipContent {
+        display: block;
+        position: fixed;
+        margin: 0;
+        padding: 0;
+        background: #FBFBFB url("../_img/flipContent_bg.jpg") top right no-repeat;
+        text-align: left;
+        overflow: scroll;
+        @include overflow-scrolling(touch);
+        @include box-shadow(0,
+        0,
+        10px,
+        #000);
+        .menuList {
+            margin: 10px;
+            >div {
+                float: none;
+                clear: both;
+                width: 100%;
+                >.resContent {
+                    padding: 5px 0;
+                    width: 100%;
+                    float: left;
+                }
+            }
+            h1 {
+                margin: 10px 0 0 0;
+                padding: 2%;
+                display: block;
+                width: 96%;
+                height: auto;
+                float: left;
+                color: #333;
+                text-transform: uppercase;
+                font-size: 20px;
+                font-family: Verdana, Geneva, sans-serif;
+            }
+            ul {
+                display: block;
+                padding: 0;
+                margin: 0;
+                width: 95%;
+                height: auto;
+                float: left;
+                li {
+                    display: block;
+                    margin: 0;
+                    padding: 10px 0;
+                    width: 100%;
+                    height: auto;
+                    float: left;
+                    border-bottom: 1px dotted #CCC;
+                    list-style: none;
+                    font-size: 15px;
+                    a {
+                        margin: 0 0 0 20px;
+                        padding: 0 0 0 20px;
+                        display: block;
+                        width: 90%;
+                        width: -o-calc(90% - 20px);
+                        width: -moz-calc(90% - 20px);
+                        width: -webkit-calc(90% - 20px);
+                        width: calc(90% - 20px);
+                        height: auto;
+                        font-size: 15px;
+                        text-decoration: none;
+                        font-family: Verdana, Geneva, sans-serif, "微軟雅黑體", "微軟正黑體", "新細明體";
+                        color: #666;
+                        background: url("../_img/list.png") top left no-repeat !important;
+                    }
+                    ul {
+                        display: block;
+                        margin-left: 15px;
+                        li {
+                            border: none;
+                            a {
+                                color: #333;
+                                background: url("../_img/rootlist.png") top left no-repeat !important;
+                            }
+                        }
+                    }
+                }
+                &:after {
+                    clear: both;
+                }
+            }
+        }
+        
+        /* 響應是視窗風格 */
+        &.style1{
+            background:url("../_img/flipContent_bg.png");
+            .menuList {
+                margin:1px;
+                h1{
+                    color: #fff;
+                    background: none;
+                    font-weight: normal;
+                    border:0;
+                }
+
+                &.resMenu a.hasChild,
+                .resMenu a.hasChild{
+                    background: url("../_img/hasChild.png") right 2px center no-repeat !important;
+                }
+
+                ul{
+                    width:100%;
+                    background:#222;
+                    li{
+                        border:0;
+                        padding:0;
+                        float:none;
+                        clear:both;
+                        a{
+                            border-bottom:1px solid #000;
+                            border-top:1px solid #2E2E2E;
+                            color: #ccc;
+                            padding:2%;
+                            width:96%;
+                            margin:0;
+                            font-weight: normal;
+                            background:none !important;
+                        }
+                        ul{
+                            margin-left: 0 !important;
+                            background:#555555 !important;
+                            li{
+                                a{
+                                    background:none !important;
+                                    border-bottom:1px solid #343434;
+                                    border-top:1px solid #8B8B8B;
+                                    color: #eee;
+                                }
+                                ul{
+                                    background:#A2A2A2 !important;
+                                    li{
+                                        a{
+                                            background:none !important;
+                                            border-bottom: 1px solid #888;
+                                            border-top: 1px solid #eee;
+                                            color: #555555;
+                                        }
+                                        ul{
+                                            background:#D6D6D6 !important;
+                                            li{
+                                                a{
+                                                    background:none !important;
+                                                    border-bottom: 1px solid #aaa;
+                                                    border-top: 1px solid #fff;
+                                                    color: #8B8B8B;
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+
+                select{
+                    padding:2%;
+                    width:100%;
+                }
+            }
+        }
+    }
+    .flipContentL {
+        top: 0;
+        left: -100%;
+        right: auto;
+        width: 80%;
+        height: 100%;
+        z-index: 101;
+    }
+    .flipContentR {
+        top: 0;
+        left: auto;
+        right: -120%;
+        width: 80%;
+        height: 100%;
+        z-index: 101;
+    }
+    .flipContentT {
+        left: 0;
+        right: auto;
+        top: -100%;
+        width: 100%;
+        height: 90%;
+        z-index: 101;
+    }
+    .flipContentTS {
+        left: 0;
+        right: auto;
+        top: -120px;
+        width: 100%;
+        height: 100px;
+        z-index: 101;
+    }
+    .flipContentLU {
+        top: 0;
+        left: -100%;
+        right: auto;
+        width: 90%;
+        height: 100%;
+        z-index: 98;
+    }
+    .flipContentRU {
+        top: 0;
+        left: auto;
+        right: -100%;
+        width: 90%;
+        height: 100%;
+        z-index: 98;
+    }
+    /*響應式頁面*/
+    .resFlipPage {
+        background: #FBFBFB url("../_img/flipContent_bg.jpg") top right no-repeat;
+        overflow: scroll;
+        @include overflow-scrolling(touch);
+    }
+    /*響應式切換按鈕*/
+    #mobile_nav_content {
+        #resSwap {
+            margin: 10px 0;
+            font-size: 20px;
+            a,
+            span {
+                font-size: 15px;
+                padding: 2px 2px 2px 22px;
+                text-transform: capitalize;
+            }
+            span {
+                font-weight: bold;
+                text-decoration: underline;
+                background: url("../_img/swap_m_btn.png") top left no-repeat;
+                &.split{
+                    text-decoration:none;
+                    padding:0;
+                    background:none;
+                }
+            }
+            a {
+                background: url("../_img/swap_d_btn.png") top left no-repeat;
+            }
+        }
+
+        //風格一的樣式
+        &.style1{
+            #resSwap {
+                margin: 10px 0;
+                font-size: 20px;
+                a,
+                span {
+                    padding: 2%;
+                    width: 46%;
+                    text-transform: uppercase;
+                    display: block;
+                    text-align: center;
+                    float: left;
+                }
+                span {
+                    font-weight: normal;
+                    text-decoration: none;
+                    background:#222 url("../_img/swap_m_btn.png") center left 5px no-repeat;
+                    border-bottom:1px solid #000;
+                    border-top:1px solid #2E2E2E;
+                    color: #fff;
+                    &.split{
+                        display:none;
+                    }
+                }
+                a {
+                    background:#111 url("../_img/swap_d_btn.png") center left 5px no-repeat;
+                    border-bottom: 1px solid #333;
+                    border-top: 1px solid #000;
+                    color: #444;
+                }
+            }
+        }
+    }
+    /* other element */
+    .mobile_hide {
+        display: none;
+    }
+    .mobile_overflow {
+        padding: 35px 0 0 0;
+        width: auto;
+        overflow: auto;
+        background: url("../_img/scroller_btn.png") top left no-repeat;
+    }
+    /*enlarge setup*/
+    .resEnlarge {
+        position: relative;
+        width: auto;
+        height: auto;
+        >.resEnlargeOpenIcon {
+            display: block;
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url("../_img/enlarge_btn.png") top left no-repeat;
+            z-index: 1;
+        }
+        >.resEnlargeContent {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: none;
+            overflow: auto;
+            z-index: 1000;
+            background: #fff;
+            padding: 10px 0 0 0;
+            >img {
+                position: relative;
+                display: block;
+                float: left;
+                margin-top: 60px;
+                margin-bottom: 30px;
+                z-index: 0;
+                max-width: none;
+            }
+            >.resEnlargeControlBar {
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 50px;
+                background: url("../_img/mobile_nav_bg.png") top left repeat-x;
+                background-size: 100% 100%;
+                z-index: 1;
+                >.resEnlargeCloseIcon,
+                >.resEnlargeFitIcon,
+                >.resEnlargeOraginalIcon,
+                >.resEnlargePlusIcon,
+                >.resEnlargeDisIcon {
+                    width: 50px;
+                    height: 50px;
+                }
+                >.resEnlargeCloseIcon {
+                    background: url("../_img/close_btn.png");
+                    float: right;
+                    background-size: 100% 100%;
+                }
+                >.resEnlargeFitIcon {
+                    background: url("../_img/fit_btn.png");
+                    float: left;
+                    background-size: 100% 100%;
+                }
+                >.resEnlargeOraginalIcon {
+                    background: url("../_img/orign_btn.png");
+                    float: left;
+                    background-size: 100% 100%;
+                }
+                >.resEnlargePlusIcon {
+                    background: url("../_img/EnlargePlus_btn.png");
+                    float: left;
+                    background-size: 100% 100%;
+                }
+                >.resEnlargeDisIcon {
+                    background: url("../_img/EnlargeDis_btn.png");
+                    float: left;
+                    background-size: 100% 100%;
+                }
+            }
+        }
+    }
+
+    /* 排除圖片最大尺寸樣式 */
+    img.resIgnoreImgReSizer{
+        max-width:none;
+    }
+
+    /* 伸縮選單 */
+    .flipContent{
+        .menuList{
+            &.resMenu,.resMenu{
+                a.hasChild{
+                    background: url("../_img/hasChild.png") left 2px no-repeat !important;
+                }
+
+                li {
+
+                    ul{
+                        display:none;
+                    }
+
+                    &.active {
+                        >ul {
+                            display: block;
+                        }
+                    }
+                    
+                }
+            }
+        }
+    }
+}
+
+
+/*
+    - iphone 6 plus landscape (736px) 
+    - iphone 6 landscape (667px)
+    - galaxy note landscape (640px)
+*/
+
+@media (max-width:740px) {
+    /*response table*/
+    .resTable>tbody {
+        width: 100%;
+        >tr {
+            >td,
+            >th {
+                display: block;
+                width: auto;
+                height: auto;
+                clear: both;
+                text-align: left;
+                &.resEmptyCol {
+                    display: none;
+                }
+                input,
+                select {
+                    width: 98%;
+                }
+                input {
+                    &[type="radio"],
+                    &[type="checkbox"] {
+                        width: auto;
+                    }
+                    &[type="submit"],
+                    &[type="reset"],
+                    &[type="button"] {
+                        width: 48%;
+                        padding: 5px 0;
+                        height: auto;
+                    }
+                }
+                button {
+                    width: 48%;
+                    padding: 5px 0;
+                    height: auto;
+                }
+                textarea {
+                    width: 98%;
+                    height: 200px;
+                }
+            }
+        }
+    }
+    /*響應式內建排版: 轉最多三欄*/
+    .resRow {
+        .resCol12 {
+            width: 100%;
+        }
+        .resCol11,
+        .resCol10,
+        .resCol8 {
+            width: (100%/12)*8;
+        }
+        .resCol9,
+        .resCol6,
+        .resCol7,
+        .resCol5,
+        .resCol3,
+        .resCol2_4 {
+            width: (100%/12)*6;
+        }
+        .resCol4,
+        .resCol2,
+        .resCol1 {
+            width: (100%/12)*4;
+        }
+        [class*="resCol"] {
+            .resMargin {
+                margin: 5px;
+            }
+            .resPadding {
+                padding: 5px;
+            }
+        }
+    }
+}
+
+
+/* 
+    - google nexus 7 portrait (604px)
+    - google nexus 7 2 portrait (600px)
+    - galaxy tab portrait (600px)
+*/
+
+@media (max-width:604px) {
+    /*響應式內建排版: 轉最多三欄*/
+    .resRow {
+        .resCol8,
+        .resCol4 {
+            width: (100%/12)*6;
+        }
+    }
+}
+
+
+/* 
+    - iphone 5 landscape (568px)
+    - iphone 4 landscape (480px)
+*/
+
+@media (max-width:570px) {
+    /*響應式內建排版*/
+    .resRow [class*="resCol"] {
+        width: 100%;
+    }
+}
+
+
+/* 
+    - iphone 6 plus portrait (414px) 
+    - galaxy note portrait (400px)
+*/
+
+@media (max-width:420px) {
+    .tabs {
+        li {
+            clear: both;
+            float: none;
+            margin: 1px 0 0 0;
+            .tabsBtn {
+                padding: 5px 10px;
+                clear: both;
+                @include border-radius(2px 2px 0 0);
+                &:hover,
+                &.active {
+                    border: 1px solid #AAAAAA;
+                    background: #cccccc;
+                }
+            }
+        }
+    }
+    .tabs_content {
+        margin: 0 0 10px 0;
+        top: 0;
+        border-top: 0;
+    }
+}
+
+
+/* 
+    - iphone 6 portrait (375px)
+    - galaxy S portrait (360px)
+    - iphone 5 portrait (320px)
+    - iphone 4 portrait (320px)
+*/
+
+@media (max-width:380px) {
+    .flipContent .menuList h1 {
+        font-size: 18px;
+    }
+    /*response table*/
+    .resTable>tbody>tr {
+        >td,
+        >th {
+            input[type="submit"],
+            input[type="reset"],
+            input[type="button"],
+            button {
+                width: 100%;
+                margin: 2px 0;
+            }
+        }
+    }
+}
+
+
+/* print style */
+
+@media print {
+    /* default setup: res object printstyle setup */
+    #resMainWrap {
+        margin: 0;
+        padding: 0;
+    }
+    #mobile_nav,
+    .flipContent,
+    .resFlipPage,
+    #topcontrol,
+    #swap_btn,
+    #mobile_nav_bottom,
+    #resPageLoader {
+        display: none !important;
+    }
+    table,
+    th,
+    td,
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    div,
+    a,
+    div,
+    span,
+    ol,
+    ul,
+    li,
+    br,
+    p,
+    iframe {
+        @include print-color-adjust(exact);
+        /* @include page-break-inside(avoid); */
+        @include page-break-after(auto);
+    }
+    table {
+        @include page-break-inside(auto);
+    }
+    .resEnlarge>.resEnlargeOpenIcon {
+        background: none;
+    }
+    .mobile_overflow {
+        background: none;
+        padding: 0;
+    }
+    .resMarquee>span {
+        margin: 0 !important;
+        width: auto;
+    }
+}

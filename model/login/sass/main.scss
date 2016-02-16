@@ -1,0 +1,58 @@
+/* 響應式設定 */
+
+@import "_css3-mixins.scss";
+body {
+    padding: 0;
+    margin: 0;
+    font-family: "微軟正黑體", "Microsoft JhengHei", 'Lato', Verdana, Meiryo;
+    font-size: 15px;
+    color: #333;
+    height:100%;
+}
+
+.resContainer{
+    .resDocLayout{
+        #loginForm{
+            width:300px;
+            height:auto;
+            margin:0 auto;
+            padding:10% 0;
+            
+            input{
+                padding:5px 10px;
+                border:1px solid #ccc;
+                margin:2px 0;
+                @include border-radius('5px');
+
+                &.submit_btn{
+                    width:100%;
+                    padding:5px 0;
+                    border:1px solid #9E9E9E;
+                    @include border-radius('0');
+                }
+            }
+        }
+
+    }
+}
+
+/* btn style */
+.btn{
+    font-size:15px;
+    display:block;
+    padding:5px 0;
+    border:1px solid #9E9E9E;
+    margin:2px 0;
+    @include background-gradient(#F5F5F5,#E1E1E1);
+    text-decoration: none;
+    color:#999;
+    &:hover{
+        @include background-gradient(#E1E1E1,#F5F5F5);
+    }
+}
+
+.note{
+    color:#F9263E;
+    text-align: center;
+    margin-bottom:10px;
+}
