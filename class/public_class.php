@@ -53,24 +53,48 @@ function updateMsg($toID, $msg){
 	$sql = "Select chart_content from chartlist where chart_id = '".$chartID."' OR chart_id = '".$chartID2."'";
 	$res = mysqli_query($config->mysqli, $sql);
 	$row = mysqli_fetch_array($res);
+	$update_chart_content = array();
+	//處理新訊息
+	$new_msg = fnProcessMsg($_SESSION['username'], $toID, $msg);
+
 	if (mysqli_num_rows($res) > 0) {
-		$update_chart_content = $row['chart_content'].$msg;
+		//處理舊訊息
+		$old_chart_content = json_decode($row['chart_content'],true);
+		array_push($old_chart_content, $new_msg);
+		$update_chart_content = json_encode($old_chart_content);
+		//var_dump($update_chart_content);die();
+		//寫入資料庫
 		$sql = "Update chartlist set 
 				chart_content = '".$update_chart_content."' 
 				where chart_id = '".$chartID."' OR chart_id = '".$chartID2."'";
 		$res = mysqli_query($config->mysqli, $sql);
 	}else{
+		//加入新訊息
+		array_push($update_chart_content, $new_msg);
+
+		//寫入資料庫
 		$sql = "Insert into chartlist (
 				chart_content,
 				chart_id) 
 				value (
-				'".$msg."',
+				'".json_encode($update_chart_content)."',
 				'".$chartID."')";
-		$res = mysqli_query($config->mysqli, $sql);
+		$res = mysqli_query($config->mysqli, $sql);//var_dump($res);die();
 	}
 
 	//更新好友列表中的訊息讀取狀態
 	updateEvent($toID, 'new');
+}
+
+//處理訊息
+function fnProcessMsg($from,$to,$msg){
+	return array(
+		'from'=>$from,
+		'to'=>$to,
+		'date'=>time(),
+		'ip'=>$_SERVER['REMOTE_ADDR'],
+		'msg'=>urlencode($msg)
+	);
 }
 
 //讀訊息狀態
@@ -122,7 +146,7 @@ function getMsg($toID){
 	//更新好友列表中的訊息讀取狀態
 	updateEvent($toID, 'read');
 
-	return $row['chart_content'];
+	return json_decode($row['chart_content'],true);
 }
 
 //讀取所有使用者清單
@@ -165,10 +189,17 @@ function addFriend($toID){
 	if (mysqli_num_rows($res) > 0) {
 		$list = mysqli_fetch_array($res);
 		$updateArray = json_decode($list['list'], true);
-		$newFriend = array('username'=>$toID, 'unread'=>0);
-		array_push($updateArray, $newFriend);
-		$sql = "Update friendlist set list = '".json_encode($updateArray)."' Where username = '".$_SESSION['username']."'";
-		$res = mysqli_query($config->mysqli, $sql);
+		$exist = false; //檢查是否好友已經存在在列表中
+		foreach ($updateArray as &$item){
+			if ($item['username'] == $toID) $exist = true;
+		}
+		//如果好友不存在才存入
+		if(!$exist) {
+			$newFriend = array('username'=>$toID, 'unread'=>0);
+			array_push($updateArray, $newFriend);
+			$sql = "Update friendlist set list = '".json_encode($updateArray)."' Where username = '".$_SESSION['username']."'";
+			$res = mysqli_query($config->mysqli, $sql);
+		}
 	}else{
 		//製作好友字串
 		$newFriend = array('username'=>$toID, 'unread'=>0);
@@ -272,6 +303,28 @@ function fnEventAlert($val){
 	if ($val == 1) {
 		return '<span class="alert">有訊息</span>';
 	}
+}
+
+//格式訊息
+function fnFormateChart($msg_obj){
+	foreach($msg_obj as &$line){
+			$name = fnGetUserInfo($line['to'],'name');
+			$date = date('Y-m-d H:i:s',$line['date']);
+			if ($line['from'] == $_SESSION['username']){
+				$outputMsg .= '<div class="resCol12 chtline"><div class="resMargin sayto">'.
+			                        html_entity_decode(urldecode($line['msg'])).
+			                        '<div class="date">'.$date.'</div>'.
+			                    '</div></div>';
+			}else{
+				$outputMsg .= '<div class="resCol12 chtline"><div class="resMargin sayfrom">'.
+			                        $name.'('.$line['ip'].'): <br>'.html_entity_decode(urldecode($line['msg'])).
+				                    '<div class="date">'.$date.'</div>'.
+			                    '</div></div>';
+			}
+			
+	}
+
+	return $outputMsg;
 }
 
 ?>

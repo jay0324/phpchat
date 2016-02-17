@@ -47,6 +47,36 @@ body {
         background:#eee;
         clear:both;
         margin-bottom:15px;
+        overflow:auto;
+
+        .chtline{
+            clear:both;
+            float:none;
+            .date{
+                text-align: right;
+                font-size:12px;
+            }
+            .sayfrom{
+                padding:8px;
+                background:#fff;
+                margin-right: 10% !important;
+                @include border-radius('10px');
+                .date{
+                    color:#aaa;
+                }
+            }
+
+            .sayto{
+                padding:8px;
+                background:#ccc;
+                margin-left: 10% !important;
+                @include border-radius('10px');
+                .date{
+                    color:#666;
+                }
+            }
+        }
+
     }
     #addMessage{
         position:relative;
@@ -92,3 +122,8 @@ body {
 .alert{
     color:#B92672;
 }
+
+#friendList{
+    overflow:auto;
+}
+

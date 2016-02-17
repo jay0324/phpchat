@@ -19,7 +19,7 @@ if (fnCheckLogin()){
 		case 'updateMsg':
 			//更新訊息
 			if (isset($_POST['addMsg']) && !empty($_POST['addMsg'])) {
-				$msg = $_POST['addMsg'];
+				$msg = htmlentities(nl2br($_POST['addMsg']));
 				updateMsg($toID, $msg);
 			}
 		break;
@@ -42,9 +42,15 @@ if (fnCheckLogin()){
 	                    </div>';
 	}
 
+	//套訊息樣式
+	$msg_obj = getMsg($toID);
+
+	//格式訊息
+	$outputMsg = fnFormateChart($msg_obj);
+
 	$tmpString->chartTo = $toID;
 	$tmpString->friendList = $friendList;
-	$tmpString->msg = getMsg($toID);
+	$tmpString->msg = $outputMsg;
 	echo useTmp('view.html', $tmpString);
 
 }else{

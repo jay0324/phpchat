@@ -10,55 +10,7 @@ $use-動畫效果class: true;
 使用方式: 在要使用效果的物件上設定animated 動畫效果class就可以了
 */
 /* $use-bounceIn: true; */
-$use-flipInY: true;
-$use-flipOutY: true;
-$use-rollIn:true;
-$use-rollOut:true;
-$use-bounceInUp: true;
 @import "animate-sass-master/_animate.scss";
-
-body{
-	padding:0;
-	margin:0;
-	font-family: 'Lato', Verdana, Meiryo, "微軟正黑體", "Microsoft JhengHei";
-	font-size:14px;
-}
-
-.resContainer{
-	.resDocLayout{
-		width:100%;
-	}
-
-	&#row0{
-		z-index:2;
-
-		#block0_2{
-			background:#A2A2A2;
-		}
-	}
-
-	&#row1{
-		.resDocLayout{
-			width:100%;
-		}
-	}
-
-	&#footer{
-		#footer_1{
-			color:#fff;
-			background:#000;
-		}	
-	}
-	
-}
-
-/* slider2 style */
-#myItemSlider2 .sliderContainer{
-	 .sliderContainerNextBtn, .sliderContainerPrevBtn{
-	 	opacity:0.5;
-	 	background:#fff;
-	 }
-}
 
 /* 
 	- google nexus 10 landscape / galaxy tab 7.7,8,9,10.1 (1280px)
@@ -128,7 +80,12 @@ body{
 	- galaxy tab portrait (600px)
 */
 @media (max-width:604px){
-
+	.resContainer#dTorso{
+		margin:0;
+	}
+	#friendListArea{
+		display:none !important;
+	}
 }
 
 /* 

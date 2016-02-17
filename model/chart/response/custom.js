@@ -1,5 +1,7 @@
 $(function() {
-	$.JResponsive();
+	$.JResponsive({
+		defaultMenuObj: "#nav"
+	});
 
 	$("#nav").JResMenu({
 		view: 'horizontal',

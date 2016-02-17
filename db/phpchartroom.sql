@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 -- 
 -- 主機: localhost
--- 建立日期: Feb 16, 2016, 05:55 AM
+-- 建立日期: Feb 17, 2016, 09:37 AM
 -- 伺服器版本: 5.0.51
 -- PHP 版本: 5.2.6
 
@@ -12,6 +12,40 @@ SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
 -- 
 -- 資料庫: `phpchartroom`
 -- 
+
+-- --------------------------------------------------------
+
+-- 
+-- 資料表格式： `chartlist`
+-- 
+
+CREATE TABLE `chartlist` (
+  `chart_id` varchar(200) NOT NULL,
+  `chart_content` longtext NOT NULL,
+  PRIMARY KEY  (`chart_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+-- 
+-- 列出以下資料庫的數據： `chartlist`
+-- 
+
+
+-- --------------------------------------------------------
+
+-- 
+-- 資料表格式： `friendlist`
+-- 
+
+CREATE TABLE `friendlist` (
+  `username` varchar(200) NOT NULL,
+  `list` longtext NOT NULL,
+  PRIMARY KEY  (`username`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+-- 
+-- 列出以下資料庫的數據： `friendlist`
+-- 
+
 
 -- --------------------------------------------------------
 

@@ -6,7 +6,10 @@ require("../class/public_class.php");
 //update chart data
 switch($_POST['action']){
 	case 'updateChart':
-		echo getMsg($_POST['id']);
+		//套訊息樣式
+		$msg_obj = getMsg($_POST['id']);
+		//格式訊息
+		echo fnFormateChart($msg_obj)."<div class='clear'></div>";
 	break;
 	case 'updateEvent':
 		if (isset($_POST['pause']) && $_POST['pause'] == 1) {

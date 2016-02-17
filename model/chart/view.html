@@ -13,18 +13,26 @@
     <!--響應式設定-->
     <script>
         $(function (){
+            setInterval('fnUpdate()',10000);
+
             fnResize();
 
             $(window).resize(function(){
                 fnResize();
             })
 
-            setInterval('fnUpdate()',1000);
-
         })
 
         function fnResize(){
             $("#viewMessage").height($(window).height()-280);
+            fnUpdateScroll();
+            console.log($("#chartArea").height());
+            $("#friendList").height($("#chartArea").height() - $("#searchForm").height() - 20);
+        }
+
+        function fnUpdateScroll(){
+            $("#viewMessage").scrollTop($("#msgWrap").innerHeight()); 
+            //console.log($("#msgWrap").innerHeight());
         }
 
         function fnUpdate(){
@@ -38,7 +46,8 @@
                     "id": "{chartTo}"
                 }
             }).done(function (r) {
-                $("#viewMessage").html(r);
+                $("#msgWrap").html(r);
+                fnUpdateScroll();
             });
 
             //更新聊天列表狀態
@@ -52,7 +61,6 @@
             }).done(function (r) {
                 $("#friendList").html(r);
             });
-
         }
     </script>
   </head>
@@ -75,7 +83,7 @@
         <div class="resDocLayout">
             <div class="resRow">
                 <div id="chartArea" class="resCol10"><div class="resMargin">
-                    <div id="viewMessage">{msg}</div>
+                    <div id="viewMessage"><div id="msgWrap" class="resRow">{msg}</div></div>
                     <div id="addMessage">
                         <form action="?id={chartTo}" method="post">
                             <textarea name="addMsg" id="addMsg"></textarea>
@@ -84,8 +92,8 @@
                         </form>
                     </div>
                 </div></div>
-                <div class="resCol2"><div class="resMargin">
-                    <form action="../list/" method="post">
+                <div id="friendListArea" class="resCol2"><div class="resMargin">
+                    <form id="searchForm" action="../list/" method="post">
                         搜尋帳號: <input type="text" name="find" />
                         <input type="hidden" name="action" value="search" />
                         <input type="submit" value="搜尋" />
