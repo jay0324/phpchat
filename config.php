@@ -8,6 +8,9 @@ class object {};
 $config = new object;
 $tmpString = new object;
 
+//全站時間
+date_default_timezone_set("Asia/Taipei");
+
 //版本號碼
 $config->appname = "PHP ChartRoom";
 $config->version = "v1.0.1";
