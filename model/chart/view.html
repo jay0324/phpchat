@@ -26,7 +26,7 @@
         function fnResize(){
             $("#viewMessage").height($(window).height()-280);
             fnUpdateScroll();
-            console.log($("#chartArea").height());
+            //console.log($("#chartArea").height());
             $("#friendList").height($("#chartArea").height() - $("#searchForm").height() - 20);
         }
 
@@ -47,7 +47,7 @@
                 }
             }).done(function (r) {
                 $("#msgWrap").html(r);
-                fnUpdateScroll();
+                //fnUpdateScroll();
             });
 
             //更新聊天列表狀態

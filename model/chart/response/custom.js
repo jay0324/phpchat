@@ -1,6 +1,8 @@
 $(function() {
 	$.JResponsive({
-		defaultMenuObj: "#nav"
+		defaultMenuObj: "#nav",
+		pannelStyle: "style1",
+		res_langSwitch: false
 	});
 
 	$("#nav").JResMenu({

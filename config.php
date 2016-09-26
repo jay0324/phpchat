@@ -39,7 +39,7 @@ $tmpString->version = $config->version;
 $tmpString->primaryNav = '<div id="nav">
 	                            <ul>
 	                                <li><a href="../list/">好友列表</a></li>
-	                                <li><a href="../info/?id={myID}">個人資訊</a></li>
+	                                <li><a href="../info/?id='.$_SESSION["username"].'">個人資訊</a></li>
 	                                <li><a href="../logout/">登出</a></li>
 	                            </ul>
 	                        </div>';

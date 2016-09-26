@@ -183,6 +183,7 @@ img {
     width: auto;
     height: auto;
     z-index: 0;
+    overflow:hidden;
     >img,
     >div,
     >a {
@@ -324,6 +325,7 @@ select.resSelect{
         position: relative;
         margin: 0 auto;
         width: 1280px;
+        overflow:hidden;
     }
 }
 
@@ -950,7 +952,7 @@ select.resSelect{
         10px,
         #000);
         .menuList {
-            margin: 10px;
+            padding: 10px;
             >div {
                 float: none;
                 clear: both;
@@ -1028,7 +1030,7 @@ select.resSelect{
         &.style1{
             background:url("../_img/flipContent_bg.png");
             .menuList {
-                margin:1px;
+                padding:1px;
                 h1{
                     color: #fff;
                     background: none;

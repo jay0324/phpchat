@@ -1,8 +1,7 @@
 $(function() {
-	$.JResponsive();
-
-	$("#nav").JResMenu({
-		view: 'horizontal',
-		action: 'click'
-	})
+	$.JResponsive({
+		res_mobileTopNavBtnSetup:{
+			state:false
+		}
+	});
  })

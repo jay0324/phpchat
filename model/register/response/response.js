@@ -1,7 +1,7 @@
 /*  
     $ Responsive plugin
     Program: Jay HSU
-    Date: 2016/02/04
+    Date: 2016/02/18
 */
 
 /*! Respond.js v1.4.2: min/max-width media query polyfill
@@ -2671,13 +2671,11 @@ var ladderObjAmt = 0;
       
                 if (loadObj != '') {
                     //如果有設定欲執行延遲載入的子物件，則執行預設載入動作
-                    $(loadObj,obj).css({
-                                    'opacity': 0,
-                                    '-ms-filter': "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)",
-                                    'filter': 'alpha(opacity=0)',
-                                    '-khtml-opacity': 0,
-                                    '-moz-opacity': 0
-                    });
+                    if (options.onLoad != false) {
+                        $(loadObj,obj).css({visibility:'hidden'}); //客制效果使用visibility來隱藏
+                    }else{
+                        $(loadObj,obj).css({opacity: '0'});
+                    }
                 }
 
                 $(window).on(mousewheelevt, function(e){
@@ -2716,18 +2714,19 @@ var ladderObjAmt = 0;
                     var delayAmt = 0;
                     for (var i = 0; i<maxAmt; i++ ){
                         delayAmt+=delay;
-                        $(loadObj+":eq("+i+")",obj).delay(delayAmt).animate({
-                            'opacity': 1,
-                            '-ms-filter': "progid:DXImageTransform.Microsoft.Alpha(Opacity=100)",
-                            'filter': 'alpha(opacity=100)',
-                            '-khtml-opacity': 1,
-                            '-moz-opacity': 1
-                        },transition).attr("load","complete");
 
                         if (options.onLoad != false) {
+                            $(loadObj+":eq("+i+")",obj).css({visibility:'visible'}); //將物件設為visible再進行效果
                             options.onLoad.call( $(loadObj+":eq("+i+")",obj) ); //執行其他客製的動作
+                        }else{
+                            $(loadObj+":eq("+i+")",obj).delay(delayAmt).animate({
+                                opacity: '1'
+                            },transition);
                         }
-                        
+
+                        //加入載入完成標記
+                        $(loadObj+":eq("+i+")",obj).attr("load","complete");
+
                     }
                 }
             }
@@ -2800,7 +2799,7 @@ var ladderObjAmt = 0;
                 'top':path[pathArray[0]]['start']['y'],
                 'left':path[pathArray[0]]['start']['x'],
                 'z-index':path[pathArray[0]]['start']['z'],
-                'opacity': path[pathArray[0]]['start']['opacity'],
+                opacity: path[pathArray[0]]['start']['opacity'],
                 '-ms-filter': "progid:DXImageTransform.Microsoft.Alpha(Opacity="+Math.round(path[pathArray[0]]['start']['opacity']*100)+")",
                 'filter': "alpha(opacity="+Math.round(path[pathArray[0]]['start']['opacity']*100)+")"
             });
@@ -2889,9 +2888,7 @@ var ladderObjAmt = 0;
                                         'top':Math.round(currentPosY)+'px',
                                         'left':Math.round(currentPosX)+'px',
                                         'z-index':currentPosZ,
-                                        'opacity':currentOpacity,
-                                        '-ms-filter': "progid:DXImageTransform.Microsoft.Alpha(Opacity="+Math.round(currentOpacity*100)+")",
-                                        'filter': "alpha(opacity="+Math.round(currentOpacity*100)+")"
+                                        opacity:currentOpacity
                                     });
                                 }
                             }
@@ -2905,9 +2902,7 @@ var ladderObjAmt = 0;
                                 'top':Math.round(currentPosY)+'px',
                                 'left':Math.round(currentPosX)+'px',
                                 'z-index':currentPosZ,
-                                'opacity':currentOpacity,
-                                '-ms-filter': "progid:DXImageTransform.Microsoft.Alpha(Opacity="+Math.round(currentOpacity*100)+")",
-                                'filter': "alpha(opacity="+Math.round(currentOpacity*100)+")"
+                                opacity:currentOpacity
                             });
                         }
 
@@ -2923,9 +2918,7 @@ var ladderObjAmt = 0;
                             //console.log($(obj).attr("id")+": "+currentPosY);
                             $(obj).css({
                                 'top':currentPosY+'px',
-                                'opacity':currentOpacity,
-                                '-ms-filter': "progid:DXImageTransform.Microsoft.Alpha(Opacity="+Math.round(currentOpacity*100)+")",
-                                'filter': "alpha(opacity="+Math.round(currentOpacity*100)+")"
+                                opacity:currentOpacity
                             });
                         }else{
                             //當定位已達最後設定，則將物件移到最終位置 (其他)
@@ -2934,9 +2927,7 @@ var ladderObjAmt = 0;
                             $(obj).css({
                                 'top':Math.round(currentPosY)+'px',
                                 'left':Math.round(currentPosX)+'px',
-                                'opacity':currentOpacity,
-                                '-ms-filter': "progid:DXImageTransform.Microsoft.Alpha(Opacity="+Math.round(currentOpacity*100)+")",
-                                'filter': "alpha(opacity="+Math.round(currentOpacity*100)+")"
+                                opacity:currentOpacity
                             });
                         }
                     }

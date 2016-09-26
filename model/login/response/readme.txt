@@ -4,11 +4,10 @@
 Program: JQuery Responsive plugin
 Programmer: Jay HSU
 
-Date: 2016/02/04 修改:
-- 修正tabJumper在無UI的狀況下仍然會有padding
-- 修正JSlideImg前後項目切換問題, 加入touch event
-- 加入css3動畫特效
-- 在頁面滑動至相對高度的resTabJumper按鈕會加入jumperActive class, 在客製化修改其樣式即可
+Date: 2016/02/18 修改:
+- 修正JResDelayLoader客制效果載入時IE opacity無法轉為1的問題
+- 修正所有opacity的設定值
+- 修正resDocLayout及resJSlideImg樣式,加入overflow hidden
 
 =======================================================================================================================
 套用方式及相關文件說明
